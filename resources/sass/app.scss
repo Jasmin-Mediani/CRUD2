@@ -1,0 +1,69 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+
+textarea
+{
+    width:100%;
+    height: 300px;
+}
+
+.row {
+
+
+    .card {
+
+        margin-bottom: 30px;
+
+        .contenitore-immagine {
+            height: 130px;
+            background-color: gray;
+            margin-bottom: 20px;
+
+            img {
+                width: 100%;
+                height: 100%;
+                display: block;
+            }
+        }
+
+        .card-title {
+            height: 30px;
+            -webkit-box-orient: vertical;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: normal;
+        }
+        .card-body {
+
+            height: 374px;
+
+            .card-prezzo {
+                height: 30px;
+                background-color: lightgray;
+            }
+            .card-descrizione {
+                height: 89px;
+                background: lightgray;
+
+                -webkit-box-orient: vertical;
+                display: -webkit-box;
+                -webkit-line-clamp: 4;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: normal;
+
+            }
+
+        }
+
+    }
+}
