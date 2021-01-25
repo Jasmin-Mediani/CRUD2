@@ -32,12 +32,6 @@
                               </div>
                               <p class="card-text card-descrizione">{{$articolo->descrizione}}</p>
                               <p class="card-text text-center card-prezzo">{{$articolo->prezzo}} €</p>
-                             {{-- @dump($articolo->categoria)--}}
-                             {{-- @foreach ($articolo->categoria as $categoria)
-                                 <p class="categorie-articolo"> {{$categoria->pivot->nome}}</p>
-                                 <p>{{$categoria->nome}}</p>
-                              @endforeach --}}
-
                           </div>
                       </div>
                   </div>

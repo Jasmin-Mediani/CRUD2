@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 
 class ArticoloController extends Controller
 {
-    //solo utenti autenticati, eccetto index e show che sono visibili a tutti
+    //solo gli utenti autenticati possono accedere alle varie funzioni e relative view. Index e show le voglio visibili per tutti:
     public function __construct()
     {
         $this->middleware('auth', ['except' => ['index' , 'show']]);
@@ -22,7 +22,6 @@ class ArticoloController extends Controller
     public function index()
     {
         $articoli = Articolo::orderBy('created_at', 'desc')->paginate(5);
-
 
         return view('articoli.index')->with(['articoli' => $articoli]);
     }
@@ -60,10 +59,13 @@ class ArticoloController extends Controller
         if ($request->hasFile('immagine')) {
             //prendo nome file  + estensione:
             $nomeFileConEstensione = $request->file('immagine')->getClientOriginalName();
+
             //prendo solo il nome, senza estenzione:
             $nomeFile = pathinfo($nomeFileConEstensione, PATHINFO_FILENAME);
+
             //prendo l'estensione:
             $estensione = $request->file('immagine')->getClientOriginalExtension();
+
             //salvo il nome del file: nome + estensione:
             $nomeFileDaSalvare = $nomeFile.'_'.time().'.'.$estensione;
 
@@ -85,7 +87,7 @@ class ArticoloController extends Controller
         $articolo->prezzo = $request->input('prezzo');
         $articolo->save();
 
-        $articolo->categoria()->sync($request->get('categoria_id'));
+        $articolo->categoria()->sync($request->get('categoria_id')); //per attaccare le categorie ai post
 
         return redirect('/')->with('message', "Articolo creato correttamente");
 
@@ -131,17 +133,19 @@ class ArticoloController extends Controller
             'immagine' => 'image|nullable|max:1999' //1999 per tanti server apache con upload max di 2mb
         ]);
 
-        //Gestione dell'upload:
+        //Gestione della modifica dell'immagine:
         if ($request->hasFile('immagine')) {
-
-            Storage::disk('public')->delete('immagini_articoli/'. $articolo->immagine);
+            Storage::disk('public')->delete('immagini_articoli/'. $articolo->immagine); //se sto uppando un'immagine, cancello quella già presente dello storage
 
             //prendo nome file  + estensione:
             $nomeFileConEstensione = $request->file('immagine')->getClientOriginalName();
+
             //prendo solo il nome, senza estenzione:
             $nomeFile = pathinfo($nomeFileConEstensione, PATHINFO_FILENAME);
+
             //prendo l'estensione:
             $estensione = $request->file('immagine')->getClientOriginalExtension();
+
             //salvo il nome del file: nome + estensione:
             $nomeFileDaSalvare = $nomeFile.'_'.time().'.'.$estensione;
             $path = $request->file('immagine')->storeAs('public/immagini_articoli', $nomeFileDaSalvare);
@@ -169,9 +173,10 @@ class ArticoloController extends Controller
     public function destroy(Articolo $articolo)
 
     {
-        //parte da storage/app/public e cancella immagini_articoli/immagine
-        Storage::disk('public')->delete('immagini_articoli/'. $articolo->immagine);
-        $articolo->delete();
+        //parte da storage/app/public e cancella immagini_articoli/$articolo->immagine
+        Storage::disk('public')->delete('immagini_articoli/'. $articolo->immagine); //prima cancello dallo storage l'immagine dell'articolo
+        $articolo->delete();  //poi cancello l'articolo
+
         return redirect('/')->with('message', "Articolo eliminato correttamente");
     }
 }
