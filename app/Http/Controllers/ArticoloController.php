@@ -12,7 +12,7 @@ class ArticoloController extends Controller
     //solo gli utenti autenticati possono accedere alle varie funzioni e relative view. Index e show le voglio visibili per tutti:
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index' , 'show']]);
+        $this->middleware('auth', ['except' => ['index' , 'show', 'search']]);
     }
     /**
      * Display a listing of the resource.
@@ -164,6 +164,22 @@ class ArticoloController extends Controller
         return redirect('/')->with('message', 'Articolo modificato correttamente');
     }
 
+    public function search(Request $request){
+        $search = $request->get('search');
+
+         /* $this->validate($request, [
+                'search' => 'min:1|max:255'
+          ]);*/
+
+
+        /*if (strlen($search) > 0)  {*/
+            $articoli = Articolo::where('nome', 'like', '%' . $search . '%')->paginate(5);
+            return view('articoli.search', ['articoli' => $articoli]);
+       /* } else {
+            return redirect('/');
+        }*/
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -180,3 +196,5 @@ class ArticoloController extends Controller
         return redirect('/')->with('message', "Articolo eliminato correttamente");
     }
 }
+
+

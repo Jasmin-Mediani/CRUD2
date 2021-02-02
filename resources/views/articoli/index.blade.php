@@ -23,7 +23,6 @@
                   <div class="col-4">
                       <div class="card d-flex ">
 
-
                           <div class="card-body">
 
                               <h4 class="card-title"> <a href="{{route('articoli.show', $articolo)}}">{{$articolo->nome}}</a> </h4>
@@ -32,6 +31,18 @@
                               </div>
                               <p class="card-text card-descrizione">{{$articolo->descrizione}}</p>
                               <p class="card-text text-center card-prezzo">{{$articolo->prezzo}} €</p>
+                            {{--
+                            @isnumero(1)
+                            Mi vedi perchè il mio parametro è un numero,
+                            @endisnumero
+                            </br>
+                              @grassetto(Sono in grassetto, con direttiva inline)
+                                <br/>
+                              @bold
+                              Sono in grassetto con la direttiva multiline
+                              @endbold
+                              --}}
+
                           </div>
                       </div>
                   </div>

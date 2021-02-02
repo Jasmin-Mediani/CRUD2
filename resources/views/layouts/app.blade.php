@@ -38,6 +38,11 @@
 
                     </ul>
 
+                    <form action="{{route('articoli.search')}}" method="get">
+                        <input type="search" name="search" placeholder="cerca un articolo" required>
+                        <button type="submit">Cerca</button>
+                    </form>
+
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->

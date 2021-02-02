@@ -27,6 +27,8 @@ Route::delete('articoli/{articolo}', [App\Http\Controllers\ArticoloController::c
 Route::get('/modifica-articolo/{articolo}', [App\Http\Controllers\ArticoloController::class, 'edit'])->name('articoli.edit');
 Route::patch('/aggiorna-articolo/{articolo}', [App\Http\Controllers\ArticoloController::class, 'update'])->name('articoli.update');
 
+Route::get('/search', [App\Http\Controllers\ArticoloController::class, 'search'])->name('articoli.search');
+
 /*Rotte categorie*/
 
 Route::get('/categorie', [App\Http\Controllers\CategoriaController::class, 'index'])->name('categorie.index');
